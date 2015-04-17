@@ -1,0 +1,79 @@
+
+<template name="mapPage">
+    {{> yield}}
+    {{> yield "footer"}}
+</template>
+
+
+<template name="lockMap">
+    <head>
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    </head>
+    <div class="map-div">
+        <div id="map" ></div>
+    </div>
+    <script>
+        var map = L.map('map').setView([30.41338,-91.1817], 19);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 22,
+            minZoom: 17
+        }).addTo(map);
+        //L.tileLayer('http://matthewmckay2015.s3-website-us-west-2.amazonaws.com/Lock3-2/{z}/{x}/{y}.png', {
+
+        L.tileLayer('/lockett-hall/{z}/{x}/{y}.png', {
+            maxZoom: 21,
+            minZoom: 19,
+            opacity: 0.85
+        }).addTo(map);
+        var greenIcon = L.icon({
+            iconUrl: 'http://leafletjs.com/docs/images/leaf-green.png',
+
+            iconSize:     [15, 30], // size of the icon
+            shadowSize:   [1, 5], // size of the shadow
+            iconAnchor:   [10, 20], // point of the icon which will correspond to marker's location
+            shadowAnchor: [1, 3],  // the same for the shadow
+            popupAnchor:  [-1, -10] // point from which the popup should open relative to the iconAnchor
+        });
+        var redIcon = L.icon({
+            iconUrl: 'http://leafletjs.com/docs/images/leaf-red.png',
+
+            iconSize:     [15, 30], // size of the icon
+            shadowSize:   [1, 5], // size of the shadow
+            iconAnchor:   [10, 20], // point of the icon which will correspond to marker's location
+            shadowAnchor: [1, 3],  // the same for the shadow
+            popupAnchor:  [-1, -10] // point from which the popup should open relative to the iconAnchor
+        });
+
+
+        /** 30.41338, -91.1817 */ /**30.4134 moved up, -9.1820 moved left */
+        if (Sect == 000) {
+            var marker1 = new L.marker([30.41351,-91.18176], {icon: redIcon}).addTo(map).bindPopup("Room B10.");
+            var marker2 = new L.marker([30.41345,-91.18187], {icon: redIcon}).addTo(map).bindPopup("Room B16.");
+            var marker3 = new L.marker([30.41332,-91.18176], {icon: redIcon}).addTo(map).bindPopup("Room B2.");
+            var marker4 = new L.marker([30.41346,-91.18165], {icon: redIcon}).addTo(map).bindPopup("Room B10.");
+            var marker5 = new L.marker([30.4132,-91.18165], {icon: redIcon}).addTo(map).bindPopup("Room B15.");
+            var marker6 = new L.marker([30.41313,-91.18176], {icon: redIcon}).addTo(map).bindPopup("Room B9.");
+            var marker7 = new L.marker([30.41319,-91.18186], {icon: redIcon}).addTo(map).bindPopup("Room B12.");
+        }
+        if (Sect == 001) {
+            var marker1 = new L.marker([30.41332,-91.18191], {icon: greenIcon}).addTo(map).bindPopup("West Entrance.");
+            var marker2 = new L.marker([30.41345,-91.18187], {icon: redIcon}).addTo(map).bindPopup("Room B16.");
+            var polyline = L.polyline([
+                        [30.41332, -91.18191],
+                        [30.41332, -91.181865],
+                        [30.413355, -91.181865],
+                        [30.413388, -91.18183],
+                        [30.41345, -91.18187]]
+            ).addTo(map);
+        }
+
+
+        function onMapClick(e) {
+            alert("You clicked the map at " + e.latlng);
+        }
+
+        map.on('click', onMapClick);
+
+    </script>
+</template>

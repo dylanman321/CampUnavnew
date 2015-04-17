@@ -1,0 +1,15 @@
+<head>
+    <title>CampUNav</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet-src.js"></script>
+</head>
+<template name="MyRoomsLayout">
+    <body class="lgbody">
+    <div style="height: 100%; width: 100%; background: rgba(73,32,126,.9); overflow: scroll;">
+        {{> yield "header"}}
+        {{> yield "form"}}
+        {{> yield}}
+        {{> yield "footer"}}
+    </div>
+    </body>
+</template>
